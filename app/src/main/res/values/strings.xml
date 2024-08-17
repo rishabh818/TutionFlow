@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TutionFlow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_batches">My Batches</string>
+    <string name="hello_chaitnya">Hello, Chaitnya!</string>
+    <string name="batches">batches</string>
+    <string name="attendance">Attendance</string>
+    <string name="report">Report</string>
+</resources>
