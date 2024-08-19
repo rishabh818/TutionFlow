@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import cg.tutorials.tutionflow.R
-import cg.tutorials.tutionflow.databinding.FragmentBatchesBinding
+import cg.tutorials.tutionflow.databinding.FragmentBatchAddBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,14 +17,14 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [BatchesFragment.newInstance] factory method to
+ * Use the [BatchAddFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BatchesFragment : Fragment() {
+class BatchAddFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-lateinit var binding: FragmentBatchesBinding
+    lateinit var binding: FragmentBatchAddBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,16 +36,19 @@ lateinit var binding: FragmentBatchesBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
+    ): View{
         // Inflate the layout for this fragment
-        binding = FragmentBatchesBinding.inflate(inflater, container, false)
+        binding=FragmentBatchAddBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.addBatch.setOnClickListener {
-            findNavController().navigate(R.id.action_batchesFragment_to_batchAddFragment)
+        binding.btnDone.setOnClickListener {
+            Toast.makeText(requireContext(), "chl rha hai", Toast.LENGTH_SHORT).show()
+        }
+        binding.btnBackArrow.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
     companion object {
@@ -55,12 +58,12 @@ lateinit var binding: FragmentBatchesBinding
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment BatchesFragment.
+         * @return A new instance of fragment BatchAddFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            BatchesFragment().apply {
+            BatchAddFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

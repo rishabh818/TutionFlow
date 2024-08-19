@@ -23,6 +23,7 @@
         android:id="@+id/bottomNav"
         app:menu="@menu/bottom_menu"
         android:background="#c7dfe6"
+        app:itemIconTint="@color/black"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

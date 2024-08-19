@@ -9,5 +9,14 @@
         android:id="@+id/batchesFragment"
         android:name="cg.tutorials.tutionflow.app_fragmants.BatchesFragment"
         android:label="fragment_batches"
-        tools:layout="@layout/fragment_batches" />
+        tools:layout="@layout/fragment_batches" >
+        <action
+            android:id="@+id/action_batchesFragment_to_batchAddFragment"
+            app:destination="@id/batchAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/batchAddFragment"
+        android:name="cg.tutorials.tutionflow.app_fragmants.BatchAddFragment"
+        android:label="fragment_batch_add"
+        tools:layout="@layout/fragment_batch_add" />
 </navigation>

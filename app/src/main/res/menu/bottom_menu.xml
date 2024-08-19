@@ -4,15 +4,12 @@
 
     <item android:title="@string/batches"
         android:id="@+id/batches"
-        android:icon="@android:drawable/ic_popup_sync"
+        android:icon="@drawable/student_center"
         />
-    <item android:title="@string/attendance"
-        android:id="@+id/attendance"
-        android:icon="@android:drawable/ic_popup_reminder"
-        />
+
     <item android:title="@string/report"
         android:id="@+id/report"
-        android:icon="@android:drawable/ic_menu_report_image"
+        android:icon="@drawable/report_ic"
         />
 
 </menu>

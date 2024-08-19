@@ -9,7 +9,7 @@
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_10dp"
+    android:layout_margin="@dimen/_10sp"
     app:cardCornerRadius="40dp"
     android:backgroundTint="@color/bgColor">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,19 +39,19 @@
             android:textStyle="bold"
             android:textColor="@color/text"
             android:layout_margin="@dimen/_20sp"
-            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_10sp"
             />
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="@dimen/_120sp"
             android:layout_height="@dimen/_120sp"
-            app:lottie_rawRes="@raw/men_dp"
+            app:lottie_rawRes="@raw/boy_dp"
             android:id="@+id/dp"
             app:layout_constraintTop_toTopOf="@id/h_07_gd"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="-18dp"
-            android:layout_marginEnd="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_16sp"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"
+            app:lottie_loop="false"
             />
 <LinearLayout
     android:layout_width="match_parent"
@@ -88,18 +88,21 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clickable="true"
+            android:id="@+id/recyclerView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_Branch"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/ll_Branch" />
 
-        <TextView
-
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:background="@drawable/add"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="@dimen/_75sp"
+            android:layout_height="@dimen/_75sp"
+            app:lottie_rawRes="@raw/add_batch"
+            android:clickable="true"
+            android:id="@+id/addBatch"
+            android:contextClickable="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/_20sp"/>

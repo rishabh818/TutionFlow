@@ -7,4 +7,10 @@
     <string name="batches">batches</string>
     <string name="attendance">Attendance</string>
     <string name="report">Report</string>
+    <string name="batch_name">Batch Name*</string>
+    <string name="batch_class">Class</string>
+    <string name="time">Timing :</string>
+    <string name="EndTime">Ending Time</string>
+    <string name="startTime">Starting Time</string>
+    <string name="to">to :</string>
 </resources>
