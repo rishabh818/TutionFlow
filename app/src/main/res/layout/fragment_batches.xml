@@ -88,6 +88,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clickable="true"
+            tools:itemCount="7"
+            android:layout_marginTop="@dimen/_75sp"
             android:id="@+id/recyclerView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -5,10 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import cg.tutorials.tutionflow.BatchData
+import cg.tutorials.tutionflow.MainActivity
 import cg.tutorials.tutionflow.R
+import cg.tutorials.tutionflow.RecyclerAdapter.BatchRecyclerAdapter
+import cg.tutorials.tutionflow.appDatabase.TutionDatabase
 import cg.tutorials.tutionflow.databinding.FragmentBatchesBinding
+import cg.tutorials.tutionflow.interfaces.BatchRecyclerInterface
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,12 +26,20 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BatchesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BatchesFragment : Fragment() {
+class BatchesFragment : Fragment(), BatchRecyclerInterface {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-lateinit var binding: FragmentBatchesBinding
+
+    var binding: FragmentBatchesBinding?=null
+    var batchArr = ArrayList<BatchData>()
+    lateinit var recyclerAdapter: BatchRecyclerAdapter
+    lateinit var tutionDatabase: TutionDatabase
+    private lateinit var mainActivity: MainActivity
+    private lateinit var linearLayoutManager: LinearLayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {
+        mainActivity=activity as MainActivity
+        tutionDatabase=TutionDatabase.getInstance(mainActivity)
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -36,18 +50,25 @@ lateinit var binding: FragmentBatchesBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentBatchesBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.addBatch.setOnClickListener {
+        linearLayoutManager = LinearLayoutManager(mainActivity)
+        recyclerAdapter = BatchRecyclerAdapter(mainActivity, batchArr,this)
+        binding?.recyclerView?.layoutManager = linearLayoutManager
+        binding?.recyclerView?.adapter = recyclerAdapter
+
+        binding?.addBatch?.setOnClickListener {
             findNavController().navigate(R.id.action_batchesFragment_to_batchAddFragment)
         }
+        getBatches()
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -66,5 +87,34 @@ lateinit var binding: FragmentBatchesBinding
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun update(position: Int) {
+        val bundle = Bundle()
+        bundle.putInt("key", batchArr[position].batchId)
+
+    }
+
+    override fun delete(position: Int) {
+        AlertDialog.Builder(mainActivity).apply {
+            setTitle("DELETE")
+            setMessage("Really want to delete the Member information")
+            setCancelable(false)
+            setPositiveButton("No") { _, _ ->
+                setCancelable(true)
+            }
+            setNegativeButton("Yes") { _, _ ->
+                tutionDatabase.batchInterface().deleteBatch(batchArr[position])
+                batchArr.removeAt(position)
+                recyclerAdapter.notifyDataSetChanged()
+            }
+            show()
+        }
+    }
+    private fun getBatches() {
+        batchArr.clear()
+        batchArr.addAll(tutionDatabase.batchInterface().getBatches())
+        batchArr.addAll(batchArr)
+        recyclerAdapter.notifyDataSetChanged()
     }
 }

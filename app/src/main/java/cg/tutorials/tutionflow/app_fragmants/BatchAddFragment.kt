@@ -1,13 +1,19 @@
 package cg.tutorials.tutionflow.app_fragmants
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import cg.tutorials.tutionflow.BatchData
+import cg.tutorials.tutionflow.MainActivity
 import cg.tutorials.tutionflow.R
+import cg.tutorials.tutionflow.appDatabase.TutionDatabase
 import cg.tutorials.tutionflow.databinding.FragmentBatchAddBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,7 +31,11 @@ class BatchAddFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding: FragmentBatchAddBinding
+    lateinit var mainActivity: MainActivity
+    lateinit var tutionDatabase:TutionDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
+        mainActivity=activity as MainActivity
+        tutionDatabase=TutionDatabase.getInstance(mainActivity)
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -45,7 +55,44 @@ class BatchAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnDone.setOnClickListener {
-            Toast.makeText(requireContext(), "chl rha hai", Toast.LENGTH_SHORT).show()
+            when {
+                binding.etBatchName.text.toString().isEmpty() -> {
+                    binding.etBatchName.error = "Enter Batch name"
+                }
+
+                binding.etClass.text.toString().isEmpty() -> {
+                    binding.etClass.error = "Enter Class"
+                }
+
+                binding.etStartTime.text.toString().isEmpty() -> {
+                    binding.etStartTime.error = "Enter Start Time"
+                }
+
+                binding.etEndTime.text.toString().isEmpty() -> {
+                    binding.etEndTime.error = "Enter Ending Time"
+                }
+
+                else -> {
+                    val batchInfo =BatchData(
+                        batchName = binding.etBatchName.text.toString(),
+                        batchClass = binding.etClass.text.toString(),
+                        startTime = binding.etStartTime.text.toString(),
+                        endTime = binding.etEndTime.text.toString()
+                    )
+                    tutionDatabase.batchInterface().addBatch(batchInfo)
+
+                    binding.animationSaved.visibility = View.VISIBLE
+//  rem.    this is the way to show the whole saved animation before popBackStack()
+                    binding.animationSaved.playAnimation()
+                    binding.animationSaved.addAnimatorListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            findNavController().popBackStack()
+                        }
+                    })
+//  else    it will popBackStack before showing the animation
+                }
+
+            }
         }
         binding.btnBackArrow.setOnClickListener {
             findNavController().popBackStack()
