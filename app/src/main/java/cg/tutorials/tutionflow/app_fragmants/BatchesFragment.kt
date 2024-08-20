@@ -114,7 +114,7 @@ class BatchesFragment : Fragment(), BatchRecyclerInterface {
     private fun getBatches() {
         batchArr.clear()
         batchArr.addAll(tutionDatabase.batchInterface().getBatches())
-        batchArr.addAll(batchArr)
         recyclerAdapter.notifyDataSetChanged()
     }
+
 }
